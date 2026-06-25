@@ -15,26 +15,114 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
   if (!asset) redirect('/dashboard')
 
   const format = asset.file_url.split('.').pop() ?? 'archivo'
+  const date = new Date(asset.created_at).toLocaleDateString('es-AR', {
+    day: '2-digit', month: '2-digit', year: 'numeric'
+  })
 
   return (
-    <main>
-      <a href="/dashboard">← Volver</a>
+    <main style={{ maxWidth: '900px', width: '100%', margin: '0 auto', padding: '32px 24px' }}>
+      <a href="/dashboard" style={{
+        color: 'var(--text-secondary)',
+        fontSize: '14px',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '4px',
+        marginBottom: '24px',
+      }}>
+        ← Volver
+      </a>
 
-      <h1>{asset.name}</h1>
-      <p>Categoría: {asset.category}</p>
-      <p>Subido por: {asset.profiles?.username ?? 'Desconocido'}</p>
-      <p>{asset.download_count} descargas</p>
-      {asset.description && <p>{asset.description}</p>}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: '32px',
+        alignItems: 'start',
+      }}>
+        {/* Preview */}
+        <div style={{
+          background: 'var(--surface)',
+          border: '1px solid var(--border)',
+          borderRadius: '12px',
+          overflow: 'hidden',
+          aspectRatio: '1',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          {asset.preview_url ? (
+            <img
+              src={asset.preview_url}
+              alt={asset.name}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          ) : (
+            <span style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>Sin preview</span>
+          )}
+        </div>
 
-      {asset.preview_url && (
-        <img src={asset.preview_url} alt={`Preview de ${asset.name}`} width={400} />
-      )}
+        {/* Info */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div>
+            <span style={{
+              display: 'inline-block',
+              background: 'var(--surface-2)',
+              border: '1px solid var(--border)',
+              color: 'var(--accent-light)',
+              fontSize: '12px',
+              padding: '2px 10px',
+              borderRadius: '20px',
+              marginBottom: '8px',
+            }}>
+              {asset.category}
+            </span>
+            <h1 style={{
+              margin: 0,
+              fontSize: '28px',
+              fontWeight: 600,
+              color: 'var(--text-primary)',
+              letterSpacing: '-0.5px',
+            }}>
+              {asset.name}
+            </h1>
+          </div>
 
-      <DownloadButton
-        assetId={asset.id}
-        fileUrl={asset.file_url}
-        format={format}
-      />
+          {asset.description && (
+            <div style={{
+              background: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: '8px',
+              padding: '14px 16px',
+            }}>
+              <p style={{
+                margin: 0,
+                fontSize: '14px',
+                color: 'var(--text-secondary)',
+                lineHeight: '1.6',
+              }}>
+                {asset.description}
+              </p>
+            </div>
+          )}
+
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
+            fontSize: '13px',
+            color: 'var(--text-secondary)',
+          }}>
+            <span>Subido por <strong style={{ color: 'var(--text-primary)' }}>{asset.profiles?.username ?? 'Desconocido'}</strong></span>
+            <span>Fecha de subida: {date}</span>
+            <span>{asset.download_count} descarga{asset.download_count !== 1 ? 's' : ''}</span>
+          </div>
+
+          <DownloadButton
+            assetId={asset.id}
+            fileUrl={asset.file_url}
+            format={format}
+          />
+        </div>
+      </div>
     </main>
   )
 }

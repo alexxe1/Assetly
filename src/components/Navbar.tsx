@@ -55,24 +55,101 @@ export default function Navbar() {
   }
 
   return (
-    <nav>
-      <a href="/dashboard">Assetly</a>
-      <div>
+    <nav style={{
+      background: 'var(--surface)',
+      borderBottom: '1px solid var(--border)',
+      padding: '0 24px',
+      height: '56px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      position: 'sticky',
+      top: 0,
+      zIndex: 50,
+    }}>
+      <a href="/dashboard" style={{
+        color: 'var(--text-primary)',
+        fontWeight: 600,
+        fontSize: '18px',
+        letterSpacing: '-0.3px',
+      }}>
+        Assetly
+      </a>
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         {isLoggedIn ? (
           <>
-            <a href="/upload">Subir</a>
-            <div ref={menuRef} style={{ position: 'relative', display: 'inline-block' }}>
-              <button onClick={() => setMenuOpen(o => !o)}>
-                {username} ▾
+            <a href="/upload" style={{
+              background: 'var(--accent)',
+              color: 'white',
+              padding: '6px 16px',
+              borderRadius: '6px',
+              fontSize: '14px',
+              fontWeight: 500,
+            }}>
+              Subir
+            </a>
+            <div ref={menuRef} style={{ position: 'relative' }}>
+              <button
+                onClick={() => setMenuOpen(o => !o)}
+                style={{
+                  background: 'var(--surface-2)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--text-primary)',
+                  padding: '6px 12px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                }}
+              >
+                {username}
+                <span style={{ color: 'var(--text-secondary)', fontSize: '10px' }}>▾</span>
               </button>
               {menuOpen && (
-                <div style={{ position: 'absolute', right: 0, background: 'white', border: '1px solid #ccc', padding: '8px', zIndex: 100 }}>
+                <div style={{
+                  position: 'absolute',
+                  right: 0,
+                  top: 'calc(100% + 8px)',
+                  background: 'var(--surface)',
+                  border: '1px solid var(--border)',
+                  borderRadius: '8px',
+                  padding: '4px',
+                  minWidth: '160px',
+                  zIndex: 100,
+                }}>
                   {isAdmin && (
-                    <a href="/admin" onClick={() => setMenuOpen(false)} style={{ display: 'block' }}>
+                    <a
+                      href="/admin"
+                      onClick={() => setMenuOpen(false)}
+                      style={{
+                        display: 'block',
+                        padding: '8px 12px',
+                        borderRadius: '6px',
+                        color: 'var(--text-primary)',
+                        fontSize: '14px',
+                      }}
+                    >
                       Panel de Admin
                     </a>
                   )}
-                  <button onClick={handleLogout} style={{ display: 'block' }}>
+                  <button
+                    onClick={handleLogout}
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      textAlign: 'left',
+                      padding: '8px 12px',
+                      borderRadius: '6px',
+                      background: 'none',
+                      border: 'none',
+                      color: 'var(--danger)',
+                      fontSize: '14px',
+                      cursor: 'pointer',
+                    }}
+                  >
                     Cerrar sesión
                   </button>
                 </div>
@@ -81,8 +158,22 @@ export default function Navbar() {
           </>
         ) : (
           <>
-            <a href="/login">Iniciar sesión</a>
-            <a href="/register">Registrarse</a>
+            <a href="/login" style={{
+              color: 'var(--text-secondary)',
+              fontSize: '14px',
+            }}>
+              Iniciar sesión
+            </a>
+            <a href="/register" style={{
+              background: 'var(--accent)',
+              color: 'white',
+              padding: '6px 16px',
+              borderRadius: '6px',
+              fontSize: '14px',
+              fontWeight: 500,
+            }}>
+              Registrarse
+            </a>
           </>
         )}
       </div>

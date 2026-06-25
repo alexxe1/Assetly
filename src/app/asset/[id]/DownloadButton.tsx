@@ -15,7 +15,23 @@ export default function DownloadButton({ assetId, fileUrl, format }: {
   }
 
   return (
-    <button onClick={handleDownload}>
+    <button
+      onClick={handleDownload}
+      style={{
+        width: '100%',
+        padding: '12px',
+        background: 'var(--accent)',
+        color: 'white',
+        border: 'none',
+        borderRadius: '8px',
+        fontSize: '15px',
+        fontWeight: 500,
+        cursor: 'pointer',
+        marginTop: '8px',
+      }}
+      onMouseEnter={e => (e.currentTarget.style.background = 'var(--accent-hover)')}
+      onMouseLeave={e => (e.currentTarget.style.background = 'var(--accent)')}
+    >
       Descargar (.{format})
     </button>
   )
