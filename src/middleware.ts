@@ -28,7 +28,10 @@ export async function middleware(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser()
 
   // Si no está logueado y trata de acceder a rutas protegidas, redirigir a login
-  if (!user && request.nextUrl.pathname.startsWith('/dashboard')) {
+  if (!user && (
+    request.nextUrl.pathname.startsWith('/upload') ||
+    request.nextUrl.pathname.startsWith('/admin')
+  )) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
