@@ -30,13 +30,51 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const supabase = createClient()
+  const max_username_length = 12
 
   async function handleRegister() {
     setError('')
-    if (!username.trim()) { setError('El nombre de usuario es obligatorio'); return }
-    if (password.length < 6) { setError('La contraseña debe tener al menos 6 caracteres'); return }
+    const cleanUsername = username.trim()
+
+    if (!cleanUsername) {
+      setError('El nombre de usuario es obligatorio')
+      return
+    }
+
+    if (cleanUsername.length < 3) {
+      setError('El nombre de usuario debe tener al menos 3 caracteres')
+      return
+    }
+
+    if (cleanUsername.length > 12) {
+      setError('El nombre de usuario no puede superar los 12 caracteres')
+      return
+    }
+
+    const usernameRegex = /^[a-zA-Z0-9_]+$/
+
+    if (!usernameRegex.test(cleanUsername)) {
+      setError('Solo se permiten letras, números y guiones bajos')
+      return
+    }
+
+    if (password.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres');
+      return
+    }
+
+    if (password.length > 100) {
+      setError('La contraseña es demasiado larga')
+      return
+    }
+
+    if (!email.trim()) {
+      setError('El email es obligatorio')
+      return
+    }
 
     setLoading(true)
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -44,12 +82,16 @@ export default function RegisterPage() {
     })
 
     if (error) {
-      if (error.message.includes('invalid format') || error.message.includes('email')) {
+      if (error.message.includes('invalid format') || error.message.toLowerCase().includes('email')) {
         setError('El formato del email no es válido')
-      } else if (error.message.includes('already registered')) {
+      } else if (error.message.includes('already registered') || error.message.includes('already been registered')) {
         setError('Ya existe una cuenta con ese email')
-      } else if (error.message.includes('Password')) {
+      } else if (error.message.includes('Password') || error.message.includes('password')) {
         setError('La contraseña debe tener al menos 6 caracteres')
+      } else if (error.message.includes('rate limit') || error.message.includes('email rate')) {
+        setError('Demasiados intentos. Esperá unos minutos e intentá de nuevo')
+      } else if (error.message.includes('unique') || error.message.includes('duplicate')) {
+        setError('Ese nombre de usuario ya está en uso')
       } else {
         setError('Ocurrió un error al crear la cuenta. Intentá de nuevo')
       }
@@ -97,6 +139,7 @@ export default function RegisterPage() {
               placeholder="tu_usuario"
               value={username}
               onChange={e => setUsername(e.target.value)}
+              maxLength={max_username_length}
               style={inputStyle}
             />
           </div>
