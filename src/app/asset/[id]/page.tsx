@@ -47,73 +47,32 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
 
       <div style={{
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
+        gridTemplateColumns: '340px 1fr',
         gap: '32px',
         alignItems: 'start',
       }}>
-        <div style={{
-          background: 'var(--surface)',
-          border: '1px solid var(--border)',
-          borderRadius: '12px',
-          overflow: 'hidden',
-          aspectRatio: '1',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-          {asset.preview_url ? (
-            <img
-              src={asset.preview_url}
-              alt={asset.name}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-          ) : (
-            <span style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>Sin preview</span>
-          )}
-        </div>
-
+        {/* Columna izquierda: imagen + info + botones */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <div>
-            <span style={{
-              display: 'inline-block',
-              background: 'var(--surface-2)',
-              border: '1px solid var(--border)',
-              color: 'var(--accent-light)',
-              fontSize: '12px',
-              padding: '2px 10px',
-              borderRadius: '20px',
-              marginBottom: '8px',
-            }}>
-              {asset.category}
-            </span>
-            <h1 style={{
-              margin: 0,
-              fontSize: '28px',
-              fontWeight: 600,
-              color: 'var(--text-primary)',
-              letterSpacing: '-0.5px',
-            }}>
-              {asset.name}
-            </h1>
+          <div style={{
+            background: 'var(--surface)',
+            border: '1px solid var(--border)',
+            borderRadius: '12px',
+            overflow: 'hidden',
+            aspectRatio: '1',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            {asset.preview_url ? (
+              <img
+                src={asset.preview_url}
+                alt={asset.name}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            ) : (
+              <span style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>Sin preview</span>
+            )}
           </div>
-
-          {asset.description && (
-            <div style={{
-              background: 'var(--surface)',
-              border: '1px solid var(--border)',
-              borderRadius: '8px',
-              padding: '14px 16px',
-            }}>
-              <p style={{
-                margin: 0,
-                fontSize: '14px',
-                color: 'var(--text-secondary)',
-                lineHeight: '1.6',
-              }}>
-                {asset.description}
-              </p>
-            </div>
-          )}
 
           <div style={{
             display: 'flex',
@@ -145,19 +104,66 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
                 border: '1px solid var(--border)',
                 borderRadius: '8px',
                 fontSize: '15px',
+                marginTop: '-6px',
                 fontWeight: 500,
                 textAlign: 'center',
-                marginTop: '-6px',
+                boxSizing: 'border-box',
               }}
             >
               Editar asset
             </a>
           )}
-          {canDelete && (
-            <DeleteAssetButton assetId={asset.id} />
+
+          {canDelete && <DeleteAssetButton assetId={asset.id} />}
+        </div>
+
+        {/* Columna derecha: título y descripción */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', minWidth: 0 }}>
+          <div>
+            <span style={{
+              display: 'inline-block',
+              background: 'var(--surface-2)',
+              border: '1px solid var(--border)',
+              color: 'var(--accent-light)',
+              fontSize: '12px',
+              padding: '2px 10px',
+              borderRadius: '20px',
+              marginBottom: '8px',
+            }}>
+              {asset.category}
+            </span>
+            <h1 style={{
+              margin: 0,
+              fontSize: '28px',
+              fontWeight: 600,
+              color: 'var(--text-primary)',
+              letterSpacing: '-0.5px',
+              wordBreak: 'break-word',
+            }}>
+              {asset.name}
+            </h1>
+          </div>
+
+          {asset.description && (
+            <div style={{
+              background: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: '8px',
+              padding: '14px 16px',
+            }}>
+              <p style={{
+                margin: 0,
+                fontSize: '14px',
+                color: 'var(--text-secondary)',
+                lineHeight: '1.6',
+                wordBreak: 'break-word',
+              }}>
+                {asset.description}
+              </p>
+            </div>
           )}
         </div>
       </div>
-    </main >
+    </main>
   )
 }

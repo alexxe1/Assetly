@@ -96,6 +96,7 @@ export default function UploadPage() {
             placeholder="Nombre del asset..."
             value={name}
             onChange={e => setName(e.target.value)}
+            maxLength={60}
             style={inputStyle}
           />
         </div>
@@ -107,6 +108,7 @@ export default function UploadPage() {
             value={description}
             onChange={e => setDescription(e.target.value)}
             rows={4}
+            maxLength={500}
             style={{ ...inputStyle, resize: 'vertical', lineHeight: '1.5' }}
           />
         </div>

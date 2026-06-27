@@ -131,6 +131,7 @@ export default function EditAssetPage({ params }: { params: Promise<{ id: string
             type="text"
             value={name}
             onChange={e => setName(e.target.value)}
+            maxLength={60}
             style={inputStyle}
           />
         </div>
@@ -141,6 +142,7 @@ export default function EditAssetPage({ params }: { params: Promise<{ id: string
             value={description}
             onChange={e => setDescription(e.target.value)}
             rows={4}
+            maxLength={500}
             style={{ ...inputStyle, resize: 'vertical', lineHeight: '1.5' }}
           />
         </div>

@@ -70,9 +70,13 @@ export default function Navbar() {
       <a href="/" style={{
         color: 'var(--text-primary)',
         fontWeight: 600,
-        fontSize: '18px',
+        fontSize: '20px',
         letterSpacing: '-0.3px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '4px',
       }}>
+        <img src="/icon.png" alt="Assetly" width={42} height={42} style={{ borderRadius: '6px' }} />
         Assetly
       </a>
 
@@ -87,7 +91,7 @@ export default function Navbar() {
               fontSize: '14px',
               fontWeight: 500,
             }}>
-              Subir
+              ¡Subir un asset!
             </a>
             <div ref={menuRef} style={{ position: 'relative' }}>
               <button
