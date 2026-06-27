@@ -49,3 +49,8 @@ create policy "Admins pueden eliminar assets"
       where id = auth.uid() and is_admin = true
     )
   );
+
+create policy "Dueños pueden editar sus assets"
+  on public.assets for update
+  using (auth.uid() = uploader_id)
+  with check (auth.uid() = uploader_id);

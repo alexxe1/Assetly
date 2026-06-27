@@ -94,7 +94,7 @@ export default function EditAssetPage({ params }: { params: Promise<{ id: string
 
     if (dbError) { setError(dbError.message); setLoading(false); return }
 
-    router.push(`/asset/${id}`)
+    window.location.href = `/asset/${id}`
   }
 
   if (initialLoading) return (
