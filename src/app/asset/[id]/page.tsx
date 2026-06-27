@@ -19,7 +19,7 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
 
   let canEdit = false
   let canDelete = false
-  
+
   if (user) {
     const { data: profile } = await supabase
       .from('profiles')
@@ -30,7 +30,8 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
     canDelete = profile?.is_admin || user.id === asset.uploader_id
   }
 
-  const format = asset.file_url.split('.').pop() ?? 'archivo'
+  const rawFormat = asset.file_url.split('.').pop() ?? 'archivo'
+  const format = rawFormat.length > 10 ? rawFormat.slice(0, 10) : rawFormat
   const date = new Date(asset.created_at).toLocaleDateString('es-AR', {
     day: '2-digit', month: '2-digit', year: 'numeric'
   })
@@ -42,8 +43,12 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
         fontSize: '14px',
         display: 'inline-flex',
         alignItems: 'center',
-        gap: '4px',
+        gap: '6px',
         marginBottom: '24px',
+        padding: '6px 12px',
+        background: 'var(--surface)',
+        border: '1px solid var(--border)',
+        borderRadius: '6px',
       }}>
         ← Volver
       </a>

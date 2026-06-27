@@ -80,7 +80,8 @@ export default function EditAssetPage({ params }: { params: Promise<{ id: string
     let newPreviewUrl = currentPreviewUrl
 
     if (preview) {
-      const previewExt = preview.name.split('.').pop()
+      const rawPreviewExt = preview.name.split('.').pop() ?? 'bin'
+      const previewExt = rawPreviewExt.slice(0, 10)
       const previewPath = `${user.id}/preview_${Date.now()}.${previewExt}`
       await supabase.storage.from('assets').upload(previewPath, preview)
       const { data: { publicUrl } } = supabase.storage.from('assets').getPublicUrl(previewPath)

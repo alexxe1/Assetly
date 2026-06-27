@@ -50,7 +50,8 @@ export default function UploadPage() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) { router.push('/login'); return }
 
-    const fileExt = file.name.split('.').pop()
+    const rawExt = file.name.split('.').pop() ?? 'bin'
+    const fileExt = rawExt.slice(0, 10)
     const filePath = `${user.id}/${Date.now()}.${fileExt}`
     const { error: uploadError } = await supabase.storage.from('assets').upload(filePath, file)
 
@@ -60,7 +61,8 @@ export default function UploadPage() {
 
     let uploadedPreviewUrl = null
     if (preview) {
-      const previewExt = preview.name.split('.').pop()
+      const rawPreviewExt = preview.name.split('.').pop() ?? 'bin'
+      const previewExt = rawPreviewExt.slice(0, 10)
       const previewPath = `${user.id}/preview_${Date.now()}.${previewExt}`
       await supabase.storage.from('assets').upload(previewPath, preview)
       const { data: { publicUrl } } = supabase.storage.from('assets').getPublicUrl(previewPath)
@@ -155,7 +157,7 @@ export default function UploadPage() {
             />
             <label htmlFor="file-input" style={{ cursor: 'pointer' }}>
               <p style={{ color: file ? 'var(--text-primary)' : 'var(--text-secondary)', fontSize: '14px', margin: 0 }}>
-                {file ? `✓ ${file.name}` : 'Hacé clic para seleccionar un archivo'}
+                {file ? `✓ ${file.name.length > 40 ? file.name.slice(0, 40) + '...' : file.name}` : 'Hacé clic para seleccionar un archivo'}
               </p>
               {file && (
                 <p style={{ color: 'var(--accent-light)', fontSize: '12px', margin: '4px 0 0' }}>
