@@ -41,14 +41,15 @@ create policy "Usuarios autenticados pueden subir assets"
   on public.assets for insert
   with check (auth.uid() = uploader_id);
 
-create policy "Admins pueden eliminar assets"
+create policy "Dueños y admins pueden eliminar assets"
   on public.assets for delete
   using (
+    auth.uid() = uploader_id or
     exists (
       select 1 from public.profiles
       where id = auth.uid() and is_admin = true
     )
-  );
+  );;
 
 create policy "Dueños pueden editar sus assets"
   on public.assets for update
