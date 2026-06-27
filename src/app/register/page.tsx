@@ -57,7 +57,7 @@ export default function RegisterPage() {
       return
     }
 
-    router.push('/')
+    router.push('/login?registered=true')
   }
 
   return (
