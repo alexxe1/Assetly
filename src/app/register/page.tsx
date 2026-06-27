@@ -73,6 +73,17 @@ export default function RegisterPage() {
       return
     }
 
+    const { data: existingUsername } = await supabase
+      .from('profiles')
+      .select('username')
+      .eq('username', cleanUsername)
+      .single()
+
+    if (existingUsername) {
+      setError('Ese nombre de usuario ya está en uso')
+      return
+    }
+
     setLoading(true)
 
     const { error } = await supabase.auth.signUp({
