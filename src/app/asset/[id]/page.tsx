@@ -17,13 +17,16 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
 
   const { data: { user } } = await supabase.auth.getUser()
 
+  let canEdit = false
   let canDelete = false
+  
   if (user) {
     const { data: profile } = await supabase
       .from('profiles')
       .select('is_admin')
       .eq('id', user.id)
       .single()
+    canEdit = user.id === asset.uploader_id
     canDelete = profile?.is_admin || user.id === asset.uploader_id
   }
 
@@ -92,7 +95,7 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
             format={format}
           />
 
-          {canDelete && (
+          {canEdit && (
             <a
               href={`/asset/${asset.id}/edit`}
               style={{
