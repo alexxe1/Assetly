@@ -76,7 +76,7 @@ function LoginForm() {
           fontSize: '13px',
           marginBottom: '16px',
         }}>
-          ¡Cuenta creada! Confirmá tu email antes de iniciar sesión.
+          Si el email es válido y no está registrado, recibirás un correo de confirmación.
         </div>
       )}
 
