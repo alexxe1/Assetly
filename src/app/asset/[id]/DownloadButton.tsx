@@ -38,7 +38,6 @@ export default function DownloadButton({ assetId, fileUrl, format }: {
         fontSize: '15px',
         fontWeight: 500,
         cursor: 'pointer',
-        marginTop: '8px',
       }}
       onMouseEnter={e => (e.currentTarget.style.background = 'var(--accent-hover)')}
       onMouseLeave={e => (e.currentTarget.style.background = 'var(--accent)')}

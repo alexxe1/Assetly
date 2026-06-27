@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import DownloadButton from './DownloadButton'
+import DeleteAssetButton from './DeleteAssetButton'
 
 export default async function AssetPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -13,6 +14,18 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
     .single()
 
   if (!asset) redirect('/')
+
+  const { data: { user } } = await supabase.auth.getUser()
+
+  let canDelete = false
+  if (user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('is_admin')
+      .eq('id', user.id)
+      .single()
+    canDelete = profile?.is_admin || user.id === asset.uploader_id
+  }
 
   const format = asset.file_url.split('.').pop() ?? 'archivo'
   const date = new Date(asset.created_at).toLocaleDateString('es-AR', {
@@ -38,7 +51,6 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
         gap: '32px',
         alignItems: 'start',
       }}>
-        {/* Preview */}
         <div style={{
           background: 'var(--surface)',
           border: '1px solid var(--border)',
@@ -60,7 +72,6 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
           )}
         </div>
 
-        {/* Info */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
             <span style={{
@@ -121,8 +132,32 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
             fileUrl={asset.file_url}
             format={format}
           />
+
+          {canDelete && (
+            <a
+              href={`/asset/${asset.id}/edit`}
+              style={{
+                display: 'block',
+                width: '100%',
+                padding: '11px',
+                background: 'var(--surface-2)',
+                color: 'var(--text-primary)',
+                border: '1px solid var(--border)',
+                borderRadius: '8px',
+                fontSize: '15px',
+                fontWeight: 500,
+                textAlign: 'center',
+                marginTop: '-6px',
+              }}
+            >
+              Editar asset
+            </a>
+          )}
+          {canDelete && (
+            <DeleteAssetButton assetId={asset.id} />
+          )}
         </div>
       </div>
-    </main>
+    </main >
   )
 }

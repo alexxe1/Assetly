@@ -30,7 +30,8 @@ export async function proxy(request: NextRequest) {
   // Si no está logueado y trata de acceder a rutas protegidas, redirigir a login
   if (!user && (
     request.nextUrl.pathname.startsWith('/upload') ||
-    request.nextUrl.pathname.startsWith('/admin')
+    request.nextUrl.pathname.startsWith('/admin') ||
+    request.nextUrl.pathname.endsWith('/edit')
   )) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
