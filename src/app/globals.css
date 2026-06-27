@@ -51,3 +51,16 @@ a:hover {
 .asset-card {
   animation: fadeInUp 0.2s ease forwards;
 }
+
+.asset-grid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (max-width: 640px) {
+  .asset-grid {
+    grid-template-columns: 1fr;
+  }
+}

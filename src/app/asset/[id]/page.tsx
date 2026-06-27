@@ -53,12 +53,7 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
         ← Volver
       </a>
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '340px 1fr',
-        gap: '32px',
-        alignItems: 'start',
-      }}>
+      <div className='asset-grid'>
         {/* Columna izquierda: imagen + info + botones */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{
