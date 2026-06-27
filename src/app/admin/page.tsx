@@ -235,7 +235,13 @@ export default function AdminPage() {
                 >
                   Ver
                 </a>
-                <DeleteButton assetId={asset.id} />
+                <DeleteButton
+                  assetId={asset.id}
+                  onDelete={() => {
+                    setAssets(prev => prev.filter(a => a.id !== asset.id))
+                    setTotal(prev => prev - 1)
+                  }}
+                />
               </div>
             </div>
           ))
