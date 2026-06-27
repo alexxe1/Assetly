@@ -15,13 +15,6 @@
   --success: #22c55e;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--text-primary);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 body {
   background: var(--background);
   color: var(--text-primary);
