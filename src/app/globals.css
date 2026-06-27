@@ -20,6 +20,8 @@ body {
   color: var(--text-primary);
   font-family: var(--font-geist-sans), Arial, sans-serif;
   min-height: 100vh;
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 * {
