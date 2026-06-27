@@ -67,7 +67,7 @@ export default function Navbar() {
       top: 0,
       zIndex: 50,
     }}>
-      <a href="/dashboard" style={{
+      <a href="/" style={{
         color: 'var(--text-primary)',
         fontWeight: 600,
         fontSize: '18px',

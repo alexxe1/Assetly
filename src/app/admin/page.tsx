@@ -48,7 +48,7 @@ export default function AdminPage() {
         .eq('id', user.id)
         .single()
 
-      if (!profile?.is_admin) { router.push('/dashboard'); return }
+      if (!profile?.is_admin) { router.push('/'); return }
 
       setIsAdmin(true)
       setLoading(false)

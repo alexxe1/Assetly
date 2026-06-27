@@ -25,7 +25,7 @@ export default function RegisterPage() {
       setError(error.message)
       return
     }
-    router.push('/dashboard')
+    router.push('/')
   }
 
   return (

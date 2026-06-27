@@ -73,7 +73,7 @@ export default function UploadPage() {
 
     if (dbError) { setError(dbError.message); setLoading(false); return }
 
-    router.push('/dashboard')
+    router.push('/')
   }
 
   return (
@@ -240,7 +240,7 @@ export default function UploadPage() {
           {loading ? 'Subiendo...' : 'Subir'}
         </button>
 
-        <a href="/dashboard" style={{
+        <a href="/" style={{
           textAlign: 'center',
           color: 'var(--text-secondary)',
           fontSize: '14px',

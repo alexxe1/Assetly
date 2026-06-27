@@ -12,7 +12,7 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
     .eq('id', id)
     .single()
 
-  if (!asset) redirect('/dashboard')
+  if (!asset) redirect('/')
 
   const format = asset.file_url.split('.').pop() ?? 'archivo'
   const date = new Date(asset.created_at).toLocaleDateString('es-AR', {
@@ -21,7 +21,7 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
 
   return (
     <main style={{ maxWidth: '900px', width: '100%', margin: '0 auto', padding: '32px 24px' }}>
-      <a href="/dashboard" style={{
+      <a href="/" style={{
         color: 'var(--text-secondary)',
         fontSize: '14px',
         display: 'inline-flex',
