@@ -31,7 +31,8 @@ export async function proxy(request: NextRequest) {
   if (!user && (
     request.nextUrl.pathname.startsWith('/upload') ||
     request.nextUrl.pathname.startsWith('/admin') ||
-    request.nextUrl.pathname.endsWith('/edit')
+    request.nextUrl.pathname.endsWith('/edit') ||
+    request.nextUrl.pathname.startsWith('/my-uploads')
   )) {
     return NextResponse.redirect(new URL('/login', request.url))
   }

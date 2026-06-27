@@ -67,18 +67,32 @@ export default function Navbar() {
       top: 0,
       zIndex: 50,
     }}>
-      <a href="/" style={{
-        color: 'var(--text-primary)',
-        fontWeight: 600,
-        fontSize: '20px',
-        letterSpacing: '-0.3px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '4px',
-      }}>
-        <img src="/icon.png" alt="Assetly" width={42} height={42} style={{ borderRadius: '6px' }} />
-        Assetly
-      </a>
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+        <a href="/" style={{
+          color: 'var(--text-primary)',
+          fontWeight: 600,
+          fontSize: '18px',
+          letterSpacing: '-0.3px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}>
+          <img src="/icon.png" alt="Assetly" width={28} height={28} style={{ borderRadius: '6px' }} />
+          Assetly
+        </a>
+        <a href="/" style={{
+          background: 'var(--surface-2)',
+          border: '1px solid var(--border)',
+          color: 'var(--text-primary)',
+          padding: '6px 16px',
+          borderRadius: '6px',
+          fontSize: '14px',
+          fontWeight: 500,
+        }}>
+          Inicio
+        </a>
+      </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         {isLoggedIn ? (
@@ -139,6 +153,19 @@ export default function Navbar() {
                       Panel de Admin
                     </a>
                   )}
+                  <a
+                    href="/my-uploads"
+                    onClick={() => setMenuOpen(false)}
+                    style={{
+                      display: 'block',
+                      padding: '8px 12px',
+                      borderRadius: '6px',
+                      color: 'var(--text-primary)',
+                      fontSize: '14px',
+                    }}
+                  >
+                    Mis subidas
+                  </a>
                   <button
                     onClick={handleLogout}
                     style={{
@@ -181,6 +208,6 @@ export default function Navbar() {
           </>
         )}
       </div>
-    </nav>
+    </nav >
   )
 }
