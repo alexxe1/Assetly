@@ -73,7 +73,6 @@ export default function HomePage() {
   return (
     <main style={{ maxWidth: '1200px', width: '100%', margin: '0 auto', padding: '32px 24px' }}>
 
-      {/* Buscador */}
       <div style={{ marginBottom: '16px' }}>
         <input
           type="text"
@@ -93,7 +92,6 @@ export default function HomePage() {
         />
       </div>
 
-      {/* Categorías */}
       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
         {CATEGORIES.map(cat => (
           <button
@@ -115,7 +113,6 @@ export default function HomePage() {
         ))}
       </div>
 
-      {/* Resultados y ordenamiento */}
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -148,7 +145,6 @@ export default function HomePage() {
         </select>
       </div>
 
-      {/* Grid de assets o empty state */}
       {assets.length > 0 ? (
         <div style={{
           display: 'grid',
@@ -156,11 +152,17 @@ export default function HomePage() {
           gap: '16px',
           marginBottom: '32px',
         }}>
-          {assets.map(asset => (
+          {assets.map((asset, index) => (
             <a
               key={asset.id}
               href={`/asset/${asset.id}`}
-              style={{ textDecoration: 'none', color: 'inherit' }}
+              className="asset-card"
+              style={{
+                textDecoration: 'none',
+                color: 'inherit',
+                animationDelay: `${index * 30}ms`,
+                opacity: 0,
+              }}
             >
               <div
                 style={{
@@ -192,7 +194,7 @@ export default function HomePage() {
                     <span style={{ color: 'var(--text-secondary)', fontSize: '12px' }}>Sin preview</span>
                   )}
                 </div>
-                <div style={{ padding: '10px 12px' }}>
+                <div style={{ padding: '8px 10px' }}>
                   <p style={{
                     margin: 0,
                     fontSize: '13px',
@@ -259,7 +261,6 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Paginación */}
       {totalPages > 1 && (
         <div style={{
           display: 'flex',

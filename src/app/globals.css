@@ -36,3 +36,18 @@ a {
 a:hover {
   color: var(--text-primary);
 }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.asset-card {
+  animation: fadeInUp 0.2s ease forwards;
+}
