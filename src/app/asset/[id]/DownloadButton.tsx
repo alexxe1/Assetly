@@ -11,7 +11,18 @@ export default function DownloadButton({ assetId, fileUrl, format }: {
 
   async function handleDownload() {
     await supabase.rpc('increment_download', { asset_id: assetId })
-    window.open(fileUrl, '_blank')
+
+    const response = await fetch(fileUrl)
+    const blob = await response.blob()
+    const url = URL.createObjectURL(blob)
+
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `asset.${format}`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
   }
 
   return (
