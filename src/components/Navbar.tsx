@@ -81,7 +81,7 @@ export default function Navbar() {
           <img src="/icon.png" alt="Assetly" width={28} height={28} style={{ borderRadius: '6px' }} />
           Assetly
         </a>
-        <a href="/" style={{
+        <a href="/" className="navbar-inicio" style={{
           background: 'var(--surface-2)',
           border: '1px solid var(--border)',
           color: 'var(--text-primary)',
@@ -104,8 +104,12 @@ export default function Navbar() {
               borderRadius: '6px',
               fontSize: '14px',
               fontWeight: 500,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
             }}>
-              ¡Subir un asset!
+              <span className="navbar-subir-texto">Subir</span>
+              <span className="navbar-subir-icono">+</span>
             </a>
             <div ref={menuRef} style={{ position: 'relative' }}>
               <button

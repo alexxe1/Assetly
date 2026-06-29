@@ -64,3 +64,23 @@ a:hover {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 640px) {
+  .navbar-inicio {
+    display: none;
+  }
+  
+  .navbar-subir-texto {
+    display: none;
+  }
+
+  .navbar-subir-icono {
+    display: inline;
+  }
+}
+
+@media (min-width: 641px) {
+  .navbar-subir-icono {
+    display: none;
+  }
+}
