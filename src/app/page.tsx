@@ -43,6 +43,7 @@ export default function HomePage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const supabase = createClient()
   const totalPages = Math.ceil(total / PAGE_SIZE)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -54,6 +55,7 @@ export default function HomePage() {
 
   useEffect(() => {
     async function fetchAssets() {
+      setLoading(true)
       let query = supabase
         .from('assets')
         .select('*', { count: 'exact' })
@@ -66,6 +68,7 @@ export default function HomePage() {
       const { data, count } = await query
       setAssets(data ?? [])
       setTotal(count ?? 0)
+      setLoading(false)
     }
     fetchAssets()
   }, [category, search, sort, page])
@@ -145,7 +148,44 @@ export default function HomePage() {
         </select>
       </div>
 
-      {assets.length > 0 ? (
+      {loading ? (
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
+          gap: '16px',
+          marginBottom: '32px',
+        }}>
+          {Array.from({ length: 10 }).map((_, i) => (
+            <div key={i} style={{
+              background: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: '10px',
+              overflow: 'hidden',
+              opacity: 0.5,
+            }}>
+              <div style={{
+                width: '100%',
+                aspectRatio: '1',
+                background: 'var(--surface-2)',
+              }} />
+              <div style={{ padding: '8px 10px' }}>
+                <div style={{
+                  height: '13px',
+                  background: 'var(--surface-2)',
+                  borderRadius: '4px',
+                  marginBottom: '6px',
+                }} />
+                <div style={{
+                  height: '11px',
+                  width: '60%',
+                  background: 'var(--surface-2)',
+                  borderRadius: '4px',
+                }} />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : assets.length > 0 ? (
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
