@@ -5,6 +5,11 @@
 
 ---
 
+## Wireframes
+
+Durante el diseño de la aplicación se realizaron wireframes para definir el flujo de navegación y la distribución de los componentes antes de comenzar la implementación.
+<img width="2921" height="1830" alt="wireframe" src="https://github.com/user-attachments/assets/ac859237-778b-47db-8e00-ed83b18b8067" />
+
 ## Tecnologías y arquitectura
 
 ### Stack principal
@@ -16,7 +21,10 @@
 | **Supabase** | Base de datos con auth y storage | BaaS que provee Postgres, autenticación con sesiones, Row Level Security y almacenamiento de archivos |
 | **Tailwind CSS** | Utilidades CSS | Clases utilitarias para layout y tipografía base |
 
-### Arquitectura
+## Arquitectura
+
+### Diagrama de arquitectura
+<img width="3890" height="3159" alt="diagrama_de_arquitectura" src="https://github.com/user-attachments/assets/59a297ab-deb9-42d1-8ef1-f185eeb6909d" />
 
 La app sigue el modelo de App Router de Next.js con una separación clara entre Server y Client Components:
 
@@ -54,7 +62,7 @@ Todas las tablas tienen RLS habilitado con policies explícitas:
 
 El uso de IA fue central en el desarrollo, tal como lo requiere el challenge.
 
-### Claude (Anthropic) — Asistente principal de desarrollo
+### Claude - Asistente principal de desarrollo
 
 Claude fue el copiloto principal durante todo el proyecto. Se usó para:
 
@@ -67,7 +75,7 @@ Claude fue el copiloto principal durante todo el proyecto. Se usó para:
 
 Mi rol fue guiar a Claude con criterio técnico: definir qué construir, en qué orden, detectar cuando el output generado tenía bugs o no se adaptaba al contexto del proyecto, e integrar las partes de forma coherente.
 
-### ChatGPT / DALL-E — Generación del ícono
+### ChatGPT - Generación del ícono
 
 Se usó ChatGPT con DALL-E para generar el ícono de la aplicación.
 
